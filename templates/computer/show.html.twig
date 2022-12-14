@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Computer{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mt-4">{{ computer.model }}</h1>
+
+    <div class="d-flex justify-content-center">
+        <img class="card-show" src="{{ computer.image }}" alt="Card image cap">
+    </div>
+    <div class="jumbotron mt-5">
+        <h2 class="display-4">{{computer.model}}</h2>
+        <p class="lead">{{ computer.description }}</p>
+        <hr class="my-4">
+        <p>Prix : {{ computer.price }}€</p>
+        <p>Année de sortie : {{ computer.releaseYear }}</p>
+        <p>Numéro de série : {{ computer.reference }}</p>
+        <p>Marque : <a class="text-primary h4" href="{{path('app_tab', {'id': computer.brand.id})}}" class="card-text">{{computer.brand.name}}</a></p>
+    </div>
+
+    {% if app.user %}
+        <div class="d-flex justify-content-around">
+            <a class="btn btn-warning" href="{{ path('app_computer_edit', {'id': computer.id}) }}">Éditer</a>
+            {{ include('computer/_delete_form.html.twig') }}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

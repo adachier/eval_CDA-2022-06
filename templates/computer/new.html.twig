@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Computer{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <h1 class="text-center">Créer une nouvelle annonce d'ordinateur</h1>
+
+        {{ include('computer/_form.html.twig') }}
+
+        <div class="text-center mb-5">
+            <a class="btn btn-secondary" href="{{ path('app_computer_index') }}">Revenir à la liste</a>
+        </div>
+    </div>
+{% endblock %}

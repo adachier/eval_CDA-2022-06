@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MainController!{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center">Liste des Annonces d'ordinateurs</h1>
+        {% if app.user %}
+            <div class="text-center mt-3">
+                <a class="btn btn-success" style="margin: 0 auto;" href="{{ path('app_computer_new')}}">Ajouter une nouvelle annonce d'ordinateur</a>
+            </div>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="text-center mt-3">
+                <a class="btn btn-warning" style="margin: 0 auto;" href="{{ path('app_computer_index')}}">Liste des annonces</a>
+                <a class="btn btn-warning" style="margin: 10px auto;" href="{{ path('app_brand_index')}}">Liste des marques</a>
+            </div>
+        {% endif %}
+        <div class="d-flex justify-content-center flex-wrap gap-5 mt-5">
+        {% for computer in computers %}
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{asset(computer.image)}}" alt="Card image cap">
+                <div class="card-body">
+                    <div class="text-center my-4">
+                        <a class="text-warning" href="{{path('app_tab', {'id': computer.brand.id})}}" class="card-text">{{computer.brand.name}}</a>
+                    </div>
+                    <h5 class="card-title">{{computer.model}}</h5>
+                    <p class="card-text">{{computer.description|u.truncate(50, '...' )}}</p>
+                    <div class="text-center">
+                        <a href="{{ path('app_computer_show', {'id': computer.id}) }}" class="btn btn-info">Voir plus</a>
+                        {% if app.user %}
+                            {% if computer.isUserFav(app.user) %}
+                                <a href="{{ path('app_annonce_fav', {'id': computer.id}) }}" class="btn btn-warning"><i class="fa-solid fa-heart-circle-check"></i></a>
+                            {% else %}
+                                <a href="{{ path('app_annonce_fav', {'id': computer.id}) }}" class="btn btn-success"><i class="fa-solid fa-heart-circle-plus"></i></a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

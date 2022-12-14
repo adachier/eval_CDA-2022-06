@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="title text-center mt-4">Ordinateurs de la marque : {{brand.name}}</h1>
+
+        <div class="container d-flex justify-content-around mt-5 flex-wrap">
+            {% for computer in brand.computers %}
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="{{asset(computer.image)}}" alt="Card image cap">
+                        <div class="card-body">
+                            <div class="text-center my-4">
+                                <a class="text-warning" href="{{path('app_tab', {'id': computer.brand.id})}}" class="card-text">{{computer.brand.name}}</a>
+                            </div>
+                            <h5 class="card-title">{{computer.model}}</h5>
+                            <p class="card-text">{{computer.description|u.truncate(50, '...' )}}</p>
+                            <div class="text-center">
+                                <a href="{{ path('app_computer_show', {'id': computer.id}) }}" class="btn btn-info">Voir plus</a>
+                                {% if app.user %}
+                                    {% if computer.isUserFav(app.user) %}
+                                        <a href="{{ path('app_annonce_fav', {'id': computer.id}) }}" class="btn btn-warning"><i class="fa-solid fa-heart-circle-check"></i></a>
+                                    {% else %}
+                                        <a href="{{ path('app_annonce_fav', {'id': computer.id}) }}" class="btn btn-success"><i class="fa-solid fa-heart-circle-plus"></i></a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

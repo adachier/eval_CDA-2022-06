@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Brand index{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center">Liste des Marques d'ordinateurs</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for brand in brands %}
+            <tr>
+                <td>{{ brand.id }}</td>
+                <td>{{ brand.name }}</td>
+                <td>
+                    <a class="btn btn-primary" href="{{ path('app_brand_show', {'id': brand.id}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_brand_edit', {'id': brand.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">Aucune Marque n'a été créée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <a class="btn btn-success" href="{{ path('app_brand_new') }}">Créer une nouvelle marque</a>
+    </div>
+{% endblock %}

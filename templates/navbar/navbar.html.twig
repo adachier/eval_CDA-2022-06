@@ -1,0 +1,20 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{path('app_home')}}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            {% for brand in allBrands %}
+                <a class="nav-item nav-link" href="{{path('app_tab', {'id': brand.id})}}">{{ brand.name }}</a>
+            {% endfor %}
+            {% if app.user %}
+                <a class="nav-item nav-link" href="{{path('app_profile', {'id' : app.user.id})}}">Mon Profil</a>
+                <a class="nav-item nav-link" href="{{path('app_logout')}}">Se déconnecter</a>
+            {% else %}
+                <a class="nav-item nav-link" href="{{path('app_login')}}">Se connecter</a>
+                <a class="nav-item nav-link" href="{{path('app_register')}}">S'inscrire</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
