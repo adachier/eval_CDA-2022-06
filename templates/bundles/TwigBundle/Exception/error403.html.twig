@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center">Erreur 403 : Vous n'êtes pas sensé être ici</h1>
+        <div class="text-center mt-5">
+            <a class="btn btn-success" href="{{ path('app_home') }}">Revenir en zone de paix</a>
+        </div>
+    </div>
+{% endblock %}
